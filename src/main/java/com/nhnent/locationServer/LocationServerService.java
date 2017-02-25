@@ -16,11 +16,26 @@ public class LocationServerService {
 		//check if this party is already mapped 
 		if(!isMapped(partyId)){ //no mapping
 			serverName = getServerName(partyId);
+			
+			//insert servername 
+			locationServerMapper.insertServerName(partyId, serverName);
 		}else{
-			serverName = locationServerMapper.getServerName(partyId);
+			serverName = "";
 		}
 		return serverName;
 	}
+	
+	public String findServer(int partyId){
+		
+		String serverName = "";
+		
+		if(isMapped(partyId)){
+			serverName = locationServerMapper.getServerName(partyId);
+		}else{//no mapping -> error / return empty string
+			serverName = "";
+		}
+		return serverName;
+	}	
 	
 	private boolean isMapped(int partyId){ 
 		//0 - no mapping
