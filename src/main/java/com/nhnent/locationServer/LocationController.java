@@ -8,32 +8,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/")
-public class LocationServerController {
+public class LocationController {
 
 	@Autowired
-	private LocationServerService lsService;
+	private LocationService lsService;
 	
 	/*
 	 * 파티를 저장할때 어느 서버에 저장하는지 결정하는 메소드
 	 * 파티 생성 시 사용 
 	 */
-	@RequestMapping(value = "/selectServer", method = RequestMethod.GET)
-	public @ResponseBody String selectDatabase(int partyId){
-		String ret = "";
-		try {
-			ret = lsService.selectServer(partyId);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return "all is good: " + ret; 
+	@RequestMapping(value = "/getLocationToBeSave", method = RequestMethod.GET)
+	public @ResponseBody String returnLocationToBeSave(int partyId){
+		
+		return lsService.returnLocationToBeSave(partyId); 
 	}
 	
 	/*
 	 * 요청받은 파티가 어느 서버에 있는지 알려주는 메소드
 	 * 파티조회, 수정 시 사용 
 	 */
-	@RequestMapping(value="findServer", method = RequestMethod.GET)
-	public @ResponseBody String findServer(int partyId){		
-		return "find Server " + lsService.findServer(partyId);
+	@RequestMapping(value="/getLocationOfParty", method = RequestMethod.GET)
+	public @ResponseBody String returnLocationOfParty(int partyId){
+		
+		return lsService.returnLocationOfParty(partyId);
 	}
 }

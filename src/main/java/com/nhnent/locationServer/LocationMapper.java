@@ -6,11 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface LocationServerMapper{
+public interface LocationMapper{
 	
-	@Select("SELECT count(*) FROM location_map WHERE party_id=#{partyId}")
-	int findPartyId(@Param("partyId") int partyId);
-	   
 	@Select("SELECT server_name FROM location_map WHERE party_id=#{partyId}")
 	String getServerName(@Param("partyId") int partyId);
 	
